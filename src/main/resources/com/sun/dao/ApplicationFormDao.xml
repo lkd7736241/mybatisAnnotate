@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.sun.dao.ApplicationFormDao">
+    	<resultMap type="com.sun.bean.ApplicationForm" id="applicationForm">
+    		<id property="id" column="id"/>
+    		<result property="name" column="name"/>
+    		<result property="qq" column="qq"/>
+    		<result property="type" column="type"/>
+    		<result property="admissionTime" column="admission_time"/>
+    		<result property="graduateSchool" column="graduate_school"/>
+    		<result property="studentIdOnWeb" column="studentIdOnWeb"/>
+    		<result property="dailyLink" column="daily_link"/>
+    		<result property="slogan" column="slogan"/>
+    		<result property="brother" column="brother"/>
+    		<result property="messageChannel" column="message_channel"/>
+    		<result property="createAt" column="create_at"/>
+    		<result property="updateAt" column="update_at"/>
+    	</resultMap>
+    
+    	<select id="selectApplicationFormById" parameterType="long" resultMap="applicationForm">
+    		SELECT
+                id,
+                NAME,
+                qq,
+                type,
+                admission_time,
+                graduate_school,
+                studentIdOnWeb,
+                daily_link,
+                slogan,
+                brother,
+                message_channel,
+                create_at,
+                update_at
+            FROM
+                application_form
+            WHERE
+                id = #{id};
+    	</select>
+
+        <select id="selectApplicationFormByName" parameterType="String" resultMap="applicationForm">
+    		SELECT
+                id,
+                NAME,
+                qq,
+                type,
+                admission_time,
+                graduate_school,
+                studentIdOnWeb,
+                daily_link,
+                slogan,
+                brother,
+                message_channel,
+                create_at,
+                update_at
+            FROM
+                application_form
+            WHERE
+                name = #{name};
+    	</select>
+
+        <select id="selectApplicationFormByQQ" parameterType="String" resultMap="applicationForm">
+    		SELECT
+                id,
+                NAME,
+                qq,
+                type,
+                admission_time,
+                graduate_school,
+                studentIdOnWeb,
+                daily_link,
+                slogan,
+                brother,
+                message_channel,
+                create_at,
+                update_at
+            FROM
+                application_form
+            WHERE
+                qq = #{qq};
+    	</select>
+
+        <insert id="addForm" parameterType="ApplicationForm">
+            INSERT INTO application_form (name, qq, type, admission_time, graduate_school,
+              studentIdOnWeb, daily_link, slogan, brother, message_channel, create_at, update_at )
+            VALUES
+              (#{name}, #{qq}, #{type}, #{admissionTime}, #{graduateSchool}, #{studentIdOnWeb},
+              #{dailyLink}, #{slogan}, #{brother}, #{messageChannel}, #{createAt}, #{updateAt})
+            <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id" keyColumn="id">
+                select last_insert_id()
+            </selectKey>
+        </insert>
+
+        <delete id="deleteForm" parameterType="ApplicationForm">
+            DELETE FROM application_form WHERE id = #{id};
+        </delete>
+
+        <update id="updateForm" parameterType="ApplicationForm">
+            UPDATE application_form
+            SET NAME = #{name},
+                qq = #{qq},
+                type = 'Android工程师',
+                admission_time = #{admissionTime},
+                graduate_school = #{graduateSchool},
+                studentIdOnWeb = #{studentIdOnWeb},
+                daily_link =  #{dailyLink},
+                slogan = #{slogan},
+                brother = #{brother},
+                message_channel =  #{messageChannel},
+                create_at = #{createAt},
+                update_at = #{updateAt}
+            WHERE
+                id = #{id};
+        </update>
+    </mapper>
